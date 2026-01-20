@@ -1,18 +1,34 @@
-# RockyMonitor
+## Rocky Monitor
 
-To start your Phoenix server:
+Real-time cat detection and monitoring system for Rocky, the neighborhood cat who visits our balcony.
 
-* Run `mix setup` to install and setup dependencies
-* Start Phoenix endpoint with `mix phx.server` or inside IEx with `iex -S mix phx.server`
+## Architecture
+```
+Camera (C200) → Python Detector → Elixir Microservice → Next.js
+                (YOLO + Motion)   (Sessions + Analytics)  (Webhooks)
+```
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+## Features
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
+- Motion-triggered YOLO detection
+- Active hours scheduling (0700 - 23:00)
+- Visit session tracking
+- Analytics (duration, frequency, location preference)
+- Webhook notifications to Next.js
 
-## Learn more
+## Stack
 
-* Official website: https://www.phoenixframework.org/
-* Guides: https://hexdocs.pm/phoenix/overview.html
-* Docs: https://hexdocs.pm/phoenix
-* Forum: https://elixirforum.com/c/phoenix-forum
-* Source: https://github.com/phoenixframework/phoenix
+- **Detection:** Python 3.11 + YOLOv8 + OpenCV
+- **Backend:** Elixir 1.15 + Phoenix + Ecto
+- **Database:** SQLite
+- **Deployment:** Docker + Alpine Linux on Raspberry Pi 4
+
+```
+
+## License
+
+Private project - Not licensed for public use
+
+## About Rocky
+
+Rocky is a neighborhood cat who regularly visits our balcony. He either waits patiently at the glass door or relaxes on the balcony sofa. This system helps us know when he's around so we can say hello! 🐱
