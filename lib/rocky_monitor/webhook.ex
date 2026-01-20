@@ -1,15 +1,15 @@
 defmodule RockyMonitor.Webhook do
-  @moduledoc """"
+  @moduledoc """
   Handles sending cat detection events to the webhook endpoint
   """
   require Logger
 
   @doc """
   Sends a detection event to the configured webhook URL.
-  
+
   ## Parameters
     - detection: Map containing detection data (timestamp, confidence, etc.)
-  
+
   ## Examples
       iex> RockyMonitor.Webhook.send_detection(%{
         timestamp: ~U[2024-01-20 10:30:00Z],
@@ -18,7 +18,7 @@ defmodule RockyMonitor.Webhook do
       })
       {:ok, %{status: 200}}
   """
-  
+
   def send_detection(detection) do
     url = webhook_url()
     payload = build_payload(detection)
@@ -30,16 +30,16 @@ defmodule RockyMonitor.Webhook do
         Logger.info("Webhook delivered successfully: #{status}")
         {:ok, response}
 
-      {:ok, %{status: status} = response} -> 
+      {:ok, %{status: status} = response} ->
         Logger.warning("Webhook failed with status #{status}: #{inspect(response.body)}")
         {:error, {:http_error, status, response}}
 
       {:error, reason} ->
         Logger.error("Webhook request failed: #{inspect(season)}")
-    end 
+    end
   end
 
-  @doc """"
+  @doc """
   Sends a detection asynchronously
   """
   def send_detection_async(detection) do
@@ -58,5 +58,4 @@ defmodule RockyMonitor.Webhook do
   defp webhook_url do
     Application.get_env(:rocky_monitor, :webhook_url)
   end
-
 end
