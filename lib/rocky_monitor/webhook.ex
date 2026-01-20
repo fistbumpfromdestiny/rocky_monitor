@@ -26,7 +26,7 @@ defmodule RockyMonitor.Webhook do
     Logger.info("Sending webhook to #{url}")
 
     case Req.post(url, json: payload) do
-      {:ok, %{status: status} = respose} when status in 200..299 ->
+      {:ok, %{status: status} = response} when status in 200..299 ->
         Logger.info("Webhook delivered successfully: #{status}")
         {:ok, response}
 
@@ -35,7 +35,7 @@ defmodule RockyMonitor.Webhook do
         {:error, {:http_error, status, response}}
 
       {:error, reason} ->
-        Logger.error("Webhook request failed: #{inspect(season)}")
+        Logger.error("Webhook request failed: #{inspect(reason)}")
     end
   end
 
