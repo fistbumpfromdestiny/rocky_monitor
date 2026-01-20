@@ -7,6 +7,8 @@ defmodule RockyMonitorWeb.Router do
 
   scope "/api", RockyMonitorWeb do
     pipe_through :api
+
+    post "/detections", DetectionController, :create
   end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development

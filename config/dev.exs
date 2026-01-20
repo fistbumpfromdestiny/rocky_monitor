@@ -61,3 +61,8 @@ config :phoenix, :plug_init_mode, :runtime
 
 # Disable swoosh api client as it is only required for production adapters.
 config :swoosh, :api_client, false
+
+config :rocky_monitor,
+  webhook_url: System.get_env("WEBHOOK_URL"),
+  webhook_retry_attempts: 3,
+  webhook_timeout_ms: 5000
