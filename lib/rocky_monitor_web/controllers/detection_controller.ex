@@ -49,9 +49,9 @@ defmodule RockyMonitorWeb.DetectionController do
     end
   end
 
-  defp timestamp(nil), do: {:ok, DateTime.utc_now()}
+  defp parse_timestamp(nil), do: {:ok, DateTime.utc_now()}
 
-  defp timestamp(timestamp) when is_binary(timestamp) do
+  defp pase_timestamp(timestamp) when is_binary(timestamp) do
     case DateTime.from_iso8601(timestamp) do
       {:ok, dt, _offset} -> {:ok, dt}
       {:error, _} -> {:error, "invalid timestamp format"}
