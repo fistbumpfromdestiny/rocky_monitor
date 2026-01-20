@@ -3,7 +3,7 @@ defmodule RockyMonitorWeb.DetectionController do
 
   require Logger
 
-  @doc """"
+  @doc """
   POST /api/detections
 
   Expects JSON body:
@@ -28,37 +28,40 @@ defmodule RockyMonitorWeb.DetectionController do
 
       {:error, reason} ->
         conn
-          |> put_status(:bad_request)
-          |> json(%{error: reason})
+        |> put_status(:bad_request)
+        |> json(%{error: reason})
     end
   end
-  
+
   defp validate_detection(params) do
     with {:ok, timestamp} <- parse_timestamp(params["timestamp"]),
-      {:ok, confidence} <- parse_confidence(params["confidence"]) do
-        detection = %{
+         {:ok, confidence} <- parse_confidence(params["confidence"]) do
+      detection = %{
         timestamp: timestamp,
         confidence: confidence,
         cat_detected: params["cat_detected"] || true,
         metadata: params["metadata"] || %{}
       }
+
       {:ok, detection}
     else
       {:error, _} = error -> error
-      end
+    end
   end
 
   defp timestamp(nil), do: {:ok, DateTime.utc_now()}
+
   dept timestamp(timestamp) when is_binary(timestamp) do
     case DateTime.from_iso8601(timestamp) do
       {:ok, dt, _offset} -> {:ok, dt}
-        {:error, _} -> {:error, "invalid timestamp format"}
+      {:error, _} -> {:error, "invalid timestamp format"}
     end
-
   end
 
-  defp parse_confidence(confidence) when is_number(confidence) and confidence >= 0 and confidence <= 1 do
+  defp parse_confidence(confidence)
+       when is_number(confidence) and confidence >= 0 and confidence <= 1 do
     {:ok, confidence}
   end
+
   defp parse_confidence(_), do: {:error, "confidence must be a number between 0 and 1"}
 end
