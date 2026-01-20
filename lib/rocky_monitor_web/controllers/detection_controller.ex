@@ -18,7 +18,7 @@ defmodule RockyMonitorWeb.DetectionController do
   """
 
   def create(conn, params) do
-    Logger.info("Received detection: #{inspect(detection)}")
+    Logger.info("Received detection: #{inspect(params)}")
 
     case validate_detection(params) do
       {:ok, detection} ->
