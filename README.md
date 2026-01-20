@@ -23,8 +23,6 @@ Camera (C200) → Python Detector → Elixir Microservice → Next.js
 - **Database:** SQLite
 - **Deployment:** Docker + Alpine Linux on Raspberry Pi 4
 
-```
-
 ## License
 
 Private project - Not licensed for public use
