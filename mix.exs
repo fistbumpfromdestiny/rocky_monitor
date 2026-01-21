@@ -44,7 +44,7 @@ defmodule RockyMonitor.MixProject do
       {:ecto_sql, "~> 3.13"},
       {:ecto_sqlite3, ">= 0.0.0"},
       {:phoenix_live_dashboard, "~> 0.8.3"},
-      {:swoosh, "~> 1.16"},
+      # {:swoosh, "~> 1.16"},  # Commented out - requires erlang-xmerl, not needed for webhooks
       {:req, "~> 0.5"},
       {:finch, "~> 0.18"},
       {:telemetry_metrics, "~> 1.0"},
@@ -53,7 +53,8 @@ defmodule RockyMonitor.MixProject do
       {:dns_cluster, "~> 0.2.0"},
       {:bandit, "~> 1.5"},
       {:cors_plug, "~> 3.0"},
-      {:dotenvy, "~> 0.8"}
+      {:dotenvy, "~> 0.8"},
+      {:oban, "~> 2.18"}
     ]
   end
 

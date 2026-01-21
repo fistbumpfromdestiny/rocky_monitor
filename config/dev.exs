@@ -59,8 +59,8 @@ config :phoenix, :stacktrace_depth, 20
 # Initialize plugs at runtime for faster development compilation
 config :phoenix, :plug_init_mode, :runtime
 
-# Disable swoosh api client as it is only required for production adapters.
-config :swoosh, :api_client, false
+# Swoosh removed - not needed for webhook-based notifications
+# config :swoosh, :api_client, false
 
 config :rocky_monitor,
   webhook_url: System.get_env("WEBHOOK_URL"),

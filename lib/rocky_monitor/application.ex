@@ -14,8 +14,8 @@ defmodule RockyMonitor.Application do
        repos: Application.fetch_env!(:rocky_monitor, :ecto_repos), skip: skip_migrations?()},
       {DNSCluster, query: Application.get_env(:rocky_monitor, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: RockyMonitor.PubSub},
-      # Start a worker by calling: RockyMonitor.Worker.start_link(arg)
-      # {RockyMonitor.Worker, arg},
+      {Oban, Application.fetch_env!(:rocky_monitor, Oban)},
+      RockyMonitor.SessionManager,
       # Start to serve requests, typically the last entry
       RockyMonitorWeb.Endpoint
     ]

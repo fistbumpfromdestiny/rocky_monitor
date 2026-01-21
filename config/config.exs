@@ -11,6 +11,15 @@ config :rocky_monitor,
   ecto_repos: [RockyMonitor.Repo],
   generators: [timestamp_type: :utc_datetime]
 
+config :rocky_monitor, Oban,
+  repo: RockyMonitor.Repo,
+  queues: [webhooks: 10],
+  plugins: [Oban.Plugins.Pruner],
+  notifier: Oban.Notifiers.PG,
+  engine: Oban.Engines.Lite,
+  peer: false,
+  prefix: false
+
 # Configure the endpoint
 config :rocky_monitor, RockyMonitorWeb.Endpoint,
   url: [host: "localhost"],
@@ -29,7 +38,7 @@ config :rocky_monitor, RockyMonitorWeb.Endpoint,
 #
 # For production it's recommended to configure a different adapter
 # at the `config/runtime.exs`.
-config :rocky_monitor, RockyMonitor.Mailer, adapter: Swoosh.Adapters.Local
+# config :rocky_monitor, RockyMonitor.Mailer, adapter: Swoosh.Adapters.Local
 
 # Configure Elixir's Logger
 config :logger, :default_formatter,
