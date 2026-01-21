@@ -11,6 +11,7 @@ defmodule RockyMonitorWeb.DetectionController do
     "timestamp": "2026-01-20T10:30:00Z",
     "confidence": 0.95,
     "cat_detected": true,
+    "is_new_session": true,
     "metadata" : {
       "camera_id": "tapo_c200"
     }
@@ -40,6 +41,7 @@ defmodule RockyMonitorWeb.DetectionController do
         timestamp: timestamp,
         confidence: confidence,
         cat_detected: params["cat_detected"] || true,
+        is_new_session: params["is_new_session"] || true,
         metadata: params["metadata"] || %{}
       }
 

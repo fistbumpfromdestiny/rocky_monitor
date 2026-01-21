@@ -14,7 +14,8 @@ defmodule RockyMonitor.Webhook do
       iex> RockyMonitor.Webhook.send_detection(%{
         timestamp: ~U[2024-01-20 10:30:00Z],
         confidence: 0.95,
-        cat_detected: true
+        cat_detected: true,
+        is_new_session: true
       })
       {:ok, %{status: 200}}
   """
@@ -51,6 +52,7 @@ defmodule RockyMonitor.Webhook do
       timestamp: detection.timestamp,
       confidence: detection.confidence,
       cat_detected: detection.cat_detected,
+      is_new_session: detection.is_new_session,
       metadata: Map.get(detection, :metadata, %{})
     }
   end
