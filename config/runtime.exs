@@ -44,14 +44,23 @@ if config_env() == :prod do
       For example: https://your-nextjs-app.com/api/webhook
       """
 
+  webhook_secret =
+    System.get_env("WEBHOOK_SECRET") ||
+      raise """
+      environment variable WEBHOOK_SECRET is missing.
+      Generate with: openssl rand -base64 32
+      """
+
   config :rocky_monitor,
     webhook_url: webhook_url,
+    webhook_secret: webhook_secret,
     webhook_retry_attempts: String.to_integer(System.get_env("WEBHOOK_RETRY_ATTEMPTS") || "3"),
     webhook_timeout_ms: String.to_integer(System.get_env("WEBHOOK_TIMEOUT_MS") || "5000")
 else
   # Dev/test configuration
   config :rocky_monitor,
     webhook_url: System.get_env("WEBHOOK_URL") || "http://localhost:3000/api/webhook",
+    webhook_secret: System.get_env("WEBHOOK_SECRET") || "dev-secret-change-in-production",
     webhook_retry_attempts: 3,
     webhook_timeout_ms: 5000
 end
