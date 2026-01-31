@@ -21,6 +21,7 @@ defmodule RockyMonitor.Workers.WebhookWorker do
 
   defp send_webhook(url, secret, payload, timeout) do
     Logger.info("Sending webhook: #{payload["event"]} to #{url}")
+    Logger.info("Webhook payload: #{Jason.encode!(payload)}")
 
     headers = [
       {"authorization", "Bearer #{secret}"},
@@ -33,8 +34,9 @@ defmodule RockyMonitor.Workers.WebhookWorker do
            receive_timeout: timeout,
            retry: false
          ) do
-      {:ok, %{status: status}} when status in 200..299 ->
-        Logger.info("Webhook delivered successfully: #{payload["event"]}")
+      {:ok, %{status: status, body: body}} when status in 200..299 ->
+        Logger.info("Webhook delivered successfully: #{payload["event"]} (status: #{status})")
+        Logger.info("Webhook response: #{inspect(body)}")
         :ok
 
       {:ok, %{status: status, body: body}} ->

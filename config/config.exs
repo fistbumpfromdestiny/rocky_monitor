@@ -42,7 +42,7 @@ config :rocky_monitor, RockyMonitorWeb.Endpoint,
 
 # Configure Elixir's Logger
 config :logger, :default_formatter,
-  format: "$time $metadata[$level] $message\n",
+  format: "$date $time $metadata[$level] $message\n",
   metadata: [:request_id]
 
 # Use Jason for JSON parsing in Phoenix
